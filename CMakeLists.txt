@@ -27,15 +27,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
-set(JUCE_DIR ${HOME}/Developer/JUCE/extras/Build/CMake)
-find_package(JUCE CONFIG REQUIRED)
-#add_subdirectory(../../JUCE)
+add_subdirectory(JUCE)
 
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+        Sources/main.cpp
+        Sources/mainwindow.cpp
+        Sources/mainwindow.h
+        Sources/mainwindow.ui
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -57,6 +55,11 @@ endif()
 target_link_libraries(QtCmakeTest
     PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
+    juce::juce_core
+    juce::juce_audio_basics
+    juce::juce_audio_devices
+    juce::juce_audio_formats
+    juce::juce_audio_processors
     PUBLIC
     juce::juce_recommended_config_flags
     juce::juce_recommended_warning_flags)

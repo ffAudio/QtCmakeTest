@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include <juce_audio_devices/juce_audio_devices.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -17,5 +19,11 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    juce::ScopedJuceInitialiser_GUI juceInitialiser;
+    juce::ToneGeneratorAudioSource source;
+    juce::AudioSourcePlayer player;
+
+    juce::AudioDeviceManager audioDeviceManager;
 };
 #endif // MAINWINDOW_H
