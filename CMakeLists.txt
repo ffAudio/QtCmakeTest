@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.17)
 
 set(PROJECT_NAME QtCmakeTest)
 
@@ -7,8 +7,8 @@ set(PROJECT_SOURCES
         Sources/mainwindow.cpp
         Sources/mainwindow.h
         Sources/mainwindow.ui
-        Sources/PluginManager.cpp
-        Sources/PluginManager.h
+        Sources/AudioPluginManager.cpp
+        Sources/AudioPluginManager.h
 )
 
 project("${PROJECT_NAME}" LANGUAGES CXX)
@@ -27,7 +27,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS YES)
 # Configure JUCE sources
 set(JUCE_ENABLE_MODULE_SOURCE_GROUPS ON)
 option(JUCE_ENABLE_MODULE_SOURCE_GROUPS "Enable Module Source Groups" ON)
-source_group("JUCE Library Code" REGULAR_EXPRESSION "juce_")
 
 # Configure QT
 source_group("QT Resources" REGULAR_EXPRESSION "\.ui$")
@@ -73,14 +72,28 @@ endif()
 
 set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
 
-target_link_libraries(${PROJECT_NAME}
-    PRIVATE
-    Qt${QT_VERSION_MAJOR}::Widgets
+juce_add_plugin(juceLib
+    PRODUCT_NAME "JUCE Lib"
+    VERSION 1.0.0
+    FORMATS Standalone)
+
+target_compile_definitions(juceLib
+    PUBLIC
+    JUCE_PLUGINHOST_AU=1
+    JUCE_PLUGINHOST_VST3=1)
+
+target_link_libraries(juceLib
+    PUBLIC
     juce::juce_core
     juce::juce_audio_basics
     juce::juce_audio_devices
+    juce::juce_audio_utils
     juce::juce_audio_formats
     juce::juce_audio_processors
-    PUBLIC
     juce::juce_recommended_config_flags
     juce::juce_recommended_warning_flags)
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+    juceLib
+    Qt${QT_VERSION_MAJOR}::Widgets)

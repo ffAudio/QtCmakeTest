@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     juce::MessageManager::getInstance();
 
+    auto pluginDataFile = juce::File::getSpecialLocation(juce::File::userHomeDirectory).getChildFile ("QtJuceHost.txt");
+    manager.setPluginDataFile (pluginDataFile);
+
     auto ret = audioDeviceManager.initialiseWithDefaultDevices (0, 2);
     DBG ("Initialise: " << ret);
     auto setup = audioDeviceManager.getAudioDeviceSetup();

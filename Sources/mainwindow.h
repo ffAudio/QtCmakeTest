@@ -5,7 +5,7 @@
 
 #include <juce_audio_devices/juce_audio_devices.h>
 
-#include "PluginManager.h"
+#include "AudioPluginManager.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,9 +23,9 @@ private:
     Ui::MainWindow *ui;
 
     juce::ScopedJuceInitialiser_GUI juceInitialiser;
-    
-    PluginManager manager;
-    
+
+    AudioPluginManager manager;
+
     juce::ToneGeneratorAudioSource source;
     juce::AudioSourcePlayer player;
 
