@@ -72,6 +72,8 @@ endif()
 
 set_target_properties("${PROJECT_NAME}" PROPERTIES FOLDER "")
 
+# this is needed to have the juce modules visible in the project.
+# You can leave that out and add the modules directly to ${PROJECT_NAME}
 juce_add_plugin(juceLib
     PRODUCT_NAME "JUCE Lib"
     VERSION 1.0.0

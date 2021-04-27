@@ -12,3 +12,13 @@ mkdir builds
 cd builds
 cmake -G Xcode ..
 ```
+
+And Windows:
+
+```
+set QT_DIR=C:\Qt\5.15.2-VC142-x64\5.15.2\msvc2019_64\lib\cmake\Qt5
+set Qt5_DIR=C:\Qt\5.15.2-VC142-x64\5.15.2\msvc2019_64\lib\cmake\Qt5
+mkdir builds
+cd builds
+cmake -G "Visual Studio 16" ..
+```
